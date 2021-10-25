@@ -1,8 +1,8 @@
 //global variable
 let Data = class {
-  constructor(userid, question, correctness, time) {
+  constructor(userid, questionNumber, correctness, time) {
     this.userid = userid;
-    this.question = question;
+    this.questionNumber = questionNumber;
     this.correctness = correctness;
     this.time = time;
   }
@@ -109,12 +109,14 @@ function ValidateCAPTCHA(value) {
   const errCaptcha = document.getElementById("errCaptcha");
   const reCaptcha = document.getElementById("reCaptcha");
   const timer = document.getElementById("timer");
+  var questionNumber = document.getElementById("number").innerHTML;
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const userid = urlParams.get('userid')
   var questionType = urlParams.get('question')
   var part = Number(urlParams.get('part'))
+
 
   var correctness = null;
   var time = timer.innerHTML;
@@ -143,7 +145,7 @@ function ValidateCAPTCHA(value) {
   clearInterval(timeId);
 
   //save data
-  var data = new Data(userid, question, correctness, time);
+  var data = new Data(userid, questionNumber, correctness, time);
   database.push(data)
   //next question
   var questionNumber = Number(document.getElementById("number").innerHTML);
@@ -153,16 +155,15 @@ function ValidateCAPTCHA(value) {
       window.location.href = 'break.html?userid=' + userid + '&question=' + questionType
     }
     else {
-      window.location.href = 'end.html?userid=' + userid
+      window.location.href = 'end.html?userid=' + userid + '&question=' + questionType
     }
   }
   CreateCAPTCHA()
 }
 
-function test() {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  var questionType = urlParams.get('question')
-  var a = JSON.parse(window.localStorage.getItem('database' + questionType));
-  console.log(a)
+function Result() {
+  var imageData = JSON.parse(window.localStorage.getItem('databaseImage-Based'));
+  var textData = JSON.parse(window.localStorage.getItem('databaseText-Based'));
+  console.log(imageData)
+  console.log(textData)
 }
