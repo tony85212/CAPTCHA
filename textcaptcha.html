@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Captcha Generator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="question" class="question">None</div>
+      <div id="number" class="number">0</div>
+      <div id="timer" class="timer">300</div>
+      <img id="captcha" src="text-based/23n88.png" alt="Simply Easy Learning"  width="200"
+         height="80">
+      <script>TextCreateCAPTCHA();</script>
+      <div class="input">
+        <input
+          type="text"
+          name="reCaptcha"
+          id="reCaptcha"
+          placeholder="Type The Captcha"
+        />
+      </div>
+    <div>
+        <input id="submit" type="button" value="Submit" onclick="TextValidateCAPTCHA(this.value)" />
+        <input type="button" value="Omit" onclick="TextValidateCAPTCHA(this.value)" />
+  </body>
+
+</html>

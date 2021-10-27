@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Captcha Generator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js"></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div id="question" class="question">None</div>
+      <div id="number" class="number">0</div>
+      <div id="timer" class="timer">300</div>
+      <div id="object" class="object">None</div>
+
+      <img id="1" src="image-based/1.jpg" alt="unclick" width="100"
+           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
+      <img id="2" src="image-based/2.jpg" alt="unclick" width="100"
+           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
+      <img id="3" src="image-based/3.jpg" alt="unclick" width="100"
+           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
+      <img id="4" src="image-based/4.jpg" alt="unclick" width="100"
+           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
+      <img id="5" src="image-based/5.jpg" alt="unclick" width="100"
+           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
+      <img id="6" src="image-based/6.jpg" alt="unclick" width="100"
+           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
+      <img id="7" src="image-based/7.jpg" alt="unclick" width="100"
+           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
+      <img id="8" src="image-based/8.jpg" alt="unclick" width="100"
+           height="100" style.border = "1px solid green"onclick="Mark(this)"></img>
+      <img id="9" src="image-based/9.jpg" alt="unclick" width="100"
+           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
+      <script>ImageCreateCAPTCHA();</script>
+
+    <div>
+        <input id ="submit" type="button" value="Submit" onclick="ImageValidateCAPTCHA(this.value)" />
+        <input type="button" value="Omit" onclick="ImageValidateCAPTCHA(this.value)" />
+  </body>
+
+</html>

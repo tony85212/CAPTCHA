@@ -1,141 +1,124 @@
 //global variable
 let Data = class {
-  constructor(userid, questionNumber, correctness, time) {
-    this.userid = userid;
+  constructor(uid, questionNumber, correctness, time) {
+    this.uid = uid;
     this.questionNumber = questionNumber;
     this.correctness = correctness;
     this.time = time;
   }
 };
-
 let database = new Array();
 let captcha = new Array();
-let timeLimit = 200;
 let timeId = null;
 
+let text = ['22d5n', '23mdg', '23n88', '226md', '2356g'];
+let obj = ['dog', 'cat']
+let image = [[1, 3, 4], [2, 6, 8]]
+let select = new Array();
+let num = 0
+//index - setup
 function Confirm() {
-  var userid = document.getElementById("userid");
-  userid = userid.value;
-  window.location.href = 'setup.html?userid=' + userid;
-
-  var f = "sometextfile.txt";
-
-  writeTextFile(f, "Spoon")
-  writeTextFile(f, "Cheese monkey")
-  writeTextFile(f, "Onion")
-
-  function writeTextFile(afilename, output)
-  {
-    var txtFile =new File(afilename);
-    txtFile.writeln(output);
-    txtFile.close();
-  }
+  var uid = document.getElementById("uid");
+  uid = uid.value;
+  window.location.href = 'setup.html?uid=' + uid;
 }
 
+//welcome
 function Welcome() {
+  //get variable
   const welcome = document.getElementById("welcome");
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const userid = urlParams.get('userid')
-  welcome.innerHTML = "Welcome, Paticipant " + userid + "!";
+  const uid = urlParams.get('uid')
+  welcome.innerHTML = "Welcome, Paticipant " + uid + "!";
 }
 
+//welcomt - captcha
 function Start(){
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const userid = urlParams.get('userid')
+  const uid = urlParams.get('uid')
   var seed = Math.round(Math.random())
   if (seed == 1) {
-    window.location.href = 'captcha.html?userid=' + userid + '&part=1&question=Image-Based';
+    window.location.href = 'imagecaptcha.html?uid=' + uid + '&part=1&captcha=Image-Based';
   }
   else {
-    window.location.href = 'captcha.html?userid=' + userid + '&part=1&question=Text-Based';
+    window.location.href = 'textcaptcha.html?uid=' + uid + '&part=1&captcha=Text-Based';
   }
 }
 
+//captcha to break
 function Break() {
-  var timer = document.getElementById("timer");
-  var time = Number(timer.innerHTML);
+  //get variable
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const userid = urlParams.get('userid')
-  var questionType = urlParams.get('question')
+  const uid = urlParams.get('uid')
+  var questionType = urlParams.get('captcha')
   var part = Number(urlParams.get('part'))
+  //setting timer
+  var timer = document.getElementById("timer");
+  var time = Number(timer.innerHTML);
 
   timeId = setInterval(function(){
     time -- ;
-    timer.innerText = time/10
+    timer.innerText = time/10;
     if (time <= 0) {
       clearInterval(timeId);
       if (questionType == "Text-Based") {
-        window.location.href = 'captcha.html?userid=' + userid + '&part=2&question=Image-Based';
+        window.location.href = 'imagecaptcha.html?uid=' + uid + '&part=2&captcha=Image-Based';
       }
       else {
-        window.location.href = 'captcha.html?userid=' + userid + '&part=2&question=Text-Based';
+        window.location.href = 'textcaptcha.html?uid=' + uid + '&part=2&captcha=Text-Based';
       }
     }
   }, 100);
 
 }
 
-function CreateCAPTCHA() {
+function TextCreateCAPTCHA() {
+  //get variaable question + number
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  var questionType = urlParams.get('captcha');
+  var question = document.getElementById("question");
+  question.innerHTML = questionType;
+  var questionNumber = document.getElementById("number");
+  num = Number(questionNumber.innerHTML);
+  //activev captcha
   const activeCaptcha = document.getElementById("captcha");
-  for (q = 0; q < 6; q++) {
-    if (q % 2 == 0) {
-      captcha[q] = String.fromCharCode(Math.floor(Math.random() * 26 + 97));
-    } else {
-      captcha[q] = Math.floor(Math.random() * 10 + 0);
-    }
-  }
-  theCaptcha = captcha.join("");
-  activeCaptcha.innerHTML = `${theCaptcha}`;
+  activeCaptcha.src="text-based/" + text[num] + ".png";
+  questionNumber.innerHTML = String(num + 1);
   //timer
   var timer = document.getElementById("timer");
   var time = timer.innerHTML
   timeId = setInterval(function(){
-    time ++ ;
+    time -- ;
+    if (time <= 0){
+      document.getElementById("submit").click();
+    }
     timer.innerText = time/10 }, 100);
-  //question + number
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  var questionType = urlParams.get('question');
-  var question = document.getElementById("question");
-  question.innerHTML = questionType;
-  var questionNumber = document.getElementById("number");
-  questionNumber.innerHTML = String(Number(questionNumber.innerHTML) + 1)
 }
 
-function ValidateCAPTCHA(value) {
-  const errCaptcha = document.getElementById("errCaptcha");
+function TextValidateCAPTCHA(value) {
   const reCaptcha = document.getElementById("reCaptcha");
   const timer = document.getElementById("timer");
   var questionNumber = document.getElementById("number").innerHTML;
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const userid = urlParams.get('userid')
-  var questionType = urlParams.get('question')
+  const uid = urlParams.get('uid')
+  var questionType = urlParams.get('captcha')
   var part = Number(urlParams.get('part'))
-
 
   var correctness = null;
   var time = timer.innerHTML;
   recaptcha = reCaptcha.value;
-  timer.innerHTML = 0;
-
+  timer.innerHTML = 300;
   if (value == 'Submit'){
-    let ValidateCAPTCHA = 0;
-    for (var z = 0; z < 6; z++) {
-      if (recaptcha.charAt(z) == captcha[z]) {
-        ValidateCAPTCHA++;
-      }
-    }
-    if (ValidateCAPTCHA == 6 && recaptcha.length == 6) {
-      errCaptcha.innerHTML = "Correct";
+    if (recaptcha === text[num]) {
       correctness = "O";
     }
     else {
-      errCaptcha.innerHTML = "Wrong";
       correctness = "X";
     }
   }
@@ -145,25 +128,149 @@ function ValidateCAPTCHA(value) {
   clearInterval(timeId);
 
   //save data
-  var data = new Data(userid, questionNumber, correctness, time);
+  var data = new Data(uid, questionNumber, correctness, time);
   database.push(data)
   //next question
   var questionNumber = Number(document.getElementById("number").innerHTML);
-  if (questionNumber%5 ==0) {
+  if (questionNumber%text.length == 0) {
     window.localStorage.setItem('database' + questionType, JSON.stringify(database));
     if (part == 1) {
-      window.location.href = 'break.html?userid=' + userid + '&question=' + questionType
+      window.location.href = 'break.html?uid=' + uid + '&captcha=' + questionType
     }
     else {
-      window.location.href = 'end.html?userid=' + userid + '&question=' + questionType
+      window.location.href = 'end.html?uid=' + uid + '&captcha=' + questionType
     }
   }
-  CreateCAPTCHA()
+  TextCreateCAPTCHA()
 }
 
-function Result() {
+function ImageCreateCAPTCHA() {
+  //get variaable question + number
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  var questionType = urlParams.get('captcha');
+  var question = document.getElementById("question");
+  question.innerHTML = questionType;
+
+  var questionNumber = document.getElementById("number");
+  num = Number(questionNumber.innerHTML);
+  var object = document.getElementById("object");
+  object.innerHTML = "Choose images that contain " + obj[num]
+  //activev captcha
+  for (var i = 1; i < 10; i++){
+    const activeCaptcha = document.getElementById(String(i));
+    activeCaptcha.src="image-based/" + String(i + num*9) + ".jpg";
+  }
+  questionNumber.innerHTML = String(num + 1);
+  //timer
+  var timer = document.getElementById("timer");
+  var time = timer.innerHTML
+  timeId = setInterval(function(){
+    time -- ;
+    if (time <= 0){
+      document.getElementById("submit").click();
+    }
+    timer.innerText = time/10 }, 100);
+}
+function Mark(el) {
+  if (el.alt == 'unclick') {
+    el.style.border = "8px solid green";
+    el.alt = 'click';
+    select.push(Number(el.id));
+  }
+  else {
+    el.style.border = "1px solid green";
+    el.alt = 'unclick';
+    for( var i = 0; i < select.length; i++){
+      if ( select[i] === Number(el.id)) {
+        select.splice(i, 1);
+      }
+    }
+  }
+}
+
+function ImageValidateCAPTCHA(value) {
+  const reCaptcha = select;
+  const timer = document.getElementById("timer");
+  var questionNumber = document.getElementById("number").innerHTML;
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const uid = urlParams.get('uid')
+  var questionType = urlParams.get('captcha')
+  var part = Number(urlParams.get('part'))
+
+  var correctness = null;
+  var time = timer.innerHTML;
+  timer.innerHTML = 300;
+  if (value == 'Submit'){
+    if(JSON.stringify(reCaptcha.sort())==JSON.stringify(image[num].sort())) {
+      correctness = "O";
+    }
+    else {
+      correctness = "X";
+    }
+  }
+  else {
+    var correctness = "-"
+  }
+  clearInterval(timeId);
+
+  //save data
+  var data = new Data(uid, questionNumber, correctness, time);
+  database.push(data)
+  //next question
+  var questionNumber = Number(document.getElementById("number").innerHTML);
+  if (questionNumber%image.length == 0) {
+    window.localStorage.setItem('database' + questionType, JSON.stringify(database));
+    if (part == 1) {
+      window.location.href = 'break.html?uid=' + uid + '&captcha=' + questionType
+    }
+    else {
+      window.location.href = 'end.html?uid=' + uid + '&captcha=' + questionType
+    }
+  }
+  ImageCreateCAPTCHA()
+}
+
+// returns a csv from of array
+function CSV(array) {
+    // use first element to choose the keys and the order
+    var keys = Object.keys(array[0]);
+    // build header
+    var result = keys.join(",") + "\n";
+    // add the rows
+    array.forEach(function(obj){
+        result += keys.map(k => obj[k]).join(",") + "\n";
+    });
+    return result;
+}
+// save file
+function DownloadFile() {
+
   var imageData = JSON.parse(window.localStorage.getItem('databaseImage-Based'));
   var textData = JSON.parse(window.localStorage.getItem('databaseText-Based'));
-  console.log(imageData)
-  console.log(textData)
+  const data = imageData.concat(textData)
+  var csv = CSV(data)
+  document.write(csv);
+
+  var hiddenElement = document.createElement('a');
+  hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+  hiddenElement.target = '_blank';
+
+  //provide the name for the CSV file to be downloaded
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  var questionType = urlParams.get('captcha');
+  const uid = urlParams.get('uid');
+  var filename = uid + '_';
+
+  if (questionType == 'Text-Based') {
+    filename += 'image-text.csv';
+  }
+  else {
+    filename += 'text-image.csv'
+  }
+  hiddenElement.download = filename;
+  hiddenElement.click();
 }
