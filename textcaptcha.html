@@ -4,29 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Text Captcha Generator</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="app.js"></script>
   </head>
 
   <body>
-    <div class="container">
-      <div id="question" class="question">None</div>
-      <div id="number" class="number">0</div>
-      <div id="timer" class="timer">300</div>
-      <img id="captcha" src="text-based/23n88.png" alt="Simply Easy Learning"  width="200"
-         height="80">
+    <div class="container1">
+      <div class="container2">
+        <span class="title3" id="question">Text-Based</span>
+        <span class="num" id="number" style="display: none;">0</span>
+        <div class="timer" id="timer" style="display: none;">300</div>
+      <center><img id="captcha" src="text-based/23n88.png" ></center>
       <script>TextCreateCAPTCHA();</script>
-      <div class="input">
-        <input
-          type="text"
-          name="reCaptcha"
-          id="reCaptcha"
-          placeholder="Type The Captcha"
-        />
+      <input class="reCaptcha" type="text" name="reCaptcha" id="reCaptcha" placeholder="Type the CAPTCHA" />
+      <div class="container3">
+        <button class="container4" id="submit" type="button" style="margin:20px;" onclick="TextValidateCAPTCHA(this.value)">
+          <span>
+            Submit
+          </span>
+        </button>
+        <button class="container4" type="button" style="margin:20px;" onclick="TextValidateCAPTCHA(this.value)" >
+          <span>
+            Omit
+          </span>
+        </button>
       </div>
-    <div>
-        <input id="submit" type="button" value="Submit" onclick="TextValidateCAPTCHA(this.value)" />
-        <input type="button" value="Omit" onclick="TextValidateCAPTCHA(this.value)" />
+      </div>
+      </div>
+      <footer>
+      <small>CS567 LAB STUDIES IN SE AND HCI : Group 5</small>
+      </footer>
   </body>
 
 </html>

@@ -13,7 +13,7 @@ let timeId = null;
 
 let text = ['22d5n', '23mdg', '23n88', '226md', '2356g'];
 let obj = ['dog', 'cat']
-let image = [[1, 3, 4], [2, 6, 8]]
+let image = [[1, 5, 6], [1, 3, 7]]
 let select = new Array();
 let num = 0
 //index - setup
@@ -61,7 +61,7 @@ function Break() {
 
   timeId = setInterval(function(){
     time -- ;
-    timer.innerText = time/10;
+    timer.innerText = Math.floor(time/10);
     if (time <= 0) {
       clearInterval(timeId);
       if (questionType == "Text-Based") {
@@ -81,7 +81,6 @@ function TextCreateCAPTCHA() {
   const urlParams = new URLSearchParams(queryString);
   var questionType = urlParams.get('captcha');
   var question = document.getElementById("question");
-  question.innerHTML = questionType;
   var questionNumber = document.getElementById("number");
   num = Number(questionNumber.innerHTML);
   //activev captcha
@@ -126,6 +125,7 @@ function TextValidateCAPTCHA(value) {
     var correctness = "-"
   }
   clearInterval(timeId);
+  reCaptcha.value = '';
 
   //save data
   var data = new Data(uid, questionNumber, correctness, time);
@@ -150,12 +150,11 @@ function ImageCreateCAPTCHA() {
   const urlParams = new URLSearchParams(queryString);
   var questionType = urlParams.get('captcha');
   var question = document.getElementById("question");
-  question.innerHTML = questionType;
 
   var questionNumber = document.getElementById("number");
   num = Number(questionNumber.innerHTML);
   var object = document.getElementById("object");
-  object.innerHTML = "Choose images that contain " + obj[num]
+  object.innerHTML = "Select all images with " + obj[num]
   //activev captcha
   for (var i = 1; i < 10; i++){
     const activeCaptcha = document.getElementById(String(i));
@@ -179,7 +178,7 @@ function Mark(el) {
     select.push(Number(el.id));
   }
   else {
-    el.style.border = "1px solid green";
+    el.style.removeProperty('border');
     el.alt = 'unclick';
     for( var i = 0; i < select.length; i++){
       if ( select[i] === Number(el.id)) {
@@ -215,6 +214,11 @@ function ImageValidateCAPTCHA(value) {
     var correctness = "-"
   }
   clearInterval(timeId);
+  for (let i = 1; i < 10; i++) {
+    document.getElementById(i.toString()).style.removeProperty('border');
+    document.getElementById(i.toString()).alt = "unclick";
+  }
+  select = [];
 
   //save data
   var data = new Data(uid, questionNumber, correctness, time);
@@ -230,7 +234,7 @@ function ImageValidateCAPTCHA(value) {
       window.location.href = 'end.html?uid=' + uid + '&captcha=' + questionType
     }
   }
-  ImageCreateCAPTCHA()
+  ImageCreateCAPTCHA();
 }
 
 // returns a csv from of array
@@ -252,7 +256,7 @@ function DownloadFile() {
   var textData = JSON.parse(window.localStorage.getItem('databaseText-Based'));
   const data = imageData.concat(textData)
   var csv = CSV(data)
-  document.write(csv);
+  //document.write(csv);
 
   var hiddenElement = document.createElement('a');
   hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);

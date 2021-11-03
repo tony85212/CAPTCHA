@@ -4,41 +4,80 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Image Captcha Generator</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="app.js"></script>
   </head>
 
   <body>
 
-    <div class="container">
-      <div id="question" class="question">None</div>
-      <div id="number" class="number">0</div>
-      <div id="timer" class="timer">300</div>
-      <div id="object" class="object">None</div>
+    <div class="container1">
+      <div class="container2">
+          <div class="title3" id="question">Image-Based</div>
+          <div class="number" id="number" style="display: none;">0</div>
+          <div class="timer" id="timer" style="display: none;">300</div>
+          <div class="object" id="object">None</div>
 
-      <img id="1" src="image-based/1.jpg" alt="unclick" width="100"
-           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
-      <img id="2" src="image-based/2.jpg" alt="unclick" width="100"
-           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
-      <img id="3" src="image-based/3.jpg" alt="unclick" width="100"
-           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
-      <img id="4" src="image-based/4.jpg" alt="unclick" width="100"
-           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
-      <img id="5" src="image-based/5.jpg" alt="unclick" width="100"
-           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
-      <img id="6" src="image-based/6.jpg" alt="unclick" width="100"
-           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
-      <img id="7" src="image-based/7.jpg" alt="unclick" width="100"
-           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
-      <img id="8" src="image-based/8.jpg" alt="unclick" width="100"
-           height="100" style.border = "1px solid green"onclick="Mark(this)"></img>
-      <img id="9" src="image-based/9.jpg" alt="unclick" width="100"
-           height="100" style.border = "1px solid green" onclick="Mark(this)"></img>
+      <div class="gallery" id="gallery">
+          <div class="gallery-item">
+          <div class="content"><img id="1" src="image-based/1.jpg" alt="unclick"
+             onclick="Mark(this)"></img></div>
+          </div>
+          <div class="gallery-item">
+          <div class="content"><img id="2" src="image-based/2.jpg" alt="unclick"
+             onclick="Mark(this)"></img></div>
+          </div>
+          <div class="gallery-item">
+          <div class="content"><img id="3" src="image-based/3.jpg" alt="unclick"
+             onclick="Mark(this)"></img></div>
+          </div>
+          <div class="gallery-item">
+          <div class="content"><img id="4" src="image-based/4.jpg" alt="unclick"
+             onclick="Mark(this)"></img></div>
+          </div>
+          <div class="gallery-item">
+          <div class="content"><img id="5" src="image-based/5.jpg" alt="unclick"
+            onclick="Mark(this)"></img></div>
+          </div>
+          <div class="gallery-item">
+          <div class="content"><img id="6" src="image-based/6.jpg" alt="unclick"
+             onclick="Mark(this)"></img></div>
+          </div>
+          <div class="gallery-item">
+          <div class="content"><img id="7" src="image-based/7.jpg" alt="unclick"
+             onclick="Mark(this)"></img></div>
+          </div>
+          <div class="gallery-item">
+          <div class="content"><img id="8" src="image-based/8.jpg" alt="unclick"
+             onclick="Mark(this)"></img></div>
+          </div>
+          <div class="gallery-item">
+          <div class="content"><img id="9" src="image-based/9.jpg" alt="unclick"
+             onclick="Mark(this)"></img></div>
+          </div>
+      </div>
+
       <script>ImageCreateCAPTCHA();</script>
 
-    <div>
-        <input id ="submit" type="button" value="Submit" onclick="ImageValidateCAPTCHA(this.value)" />
-        <input type="button" value="Omit" onclick="ImageValidateCAPTCHA(this.value)" />
+      <div class="container3">
+        <button class="container4" id ="submit" type="button" style="margin:20px;" onclick="ImageValidateCAPTCHA(this.value)">
+          <span>
+            Submit
+          </span>
+        </button>
+        <button class="container4" type="button" style="margin:20px;" onclick="ImageValidateCAPTCHA(this.value)" >
+          <span>
+            Omit
+          </span>
+        </button>
+      </div>
+      </div>
+
+  </div>
+
+      <footer>
+          <small>CS567 LAB STUDIES IN SE AND HCI : Group 5</small>
+      </footer>
+
   </body>
 
 </html>

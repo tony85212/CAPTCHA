@@ -4,21 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Index</title>
-    <link rel="stylesheet" href="indexStyle.css" />
+  	<link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="app.js"></script>
   </head>
   <body>
-    <h1>CAPTCHA</h1>
-    <div class="input">
-      <input
-        type="text"
-        name="uid"
-        id="uid"
-        placeholder="Type Your ID"
-      />
+    <div class="container1">
+      <div class="container2">
+        <span class="title">
+          CAPTCHA
+        </span>
+        <input class="uid" type="text" name="uid" id="uid" placeholder="Please Type Your ID" />
+        <div class="container3">
+					<button class="container4" type="button" onclick="Confirm()">
+						<span>
+							Send
+						</span>
+					</button>
+				</div>
+      </div>
     </div>
-    <input type="button" value="Confirm" onclick="Confirm()" />
-
-
+    <footer>
+      <small>CS567 LAB STUDIES IN SE AND HCI : Group 5</small>
+    </footer>
   </body>
 </html>
