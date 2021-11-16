@@ -11,9 +11,14 @@ let database = new Array();
 let captcha = new Array();
 let timeId = null;
 
-let text = ['22d5n', '23mdg', '23n88', '226md', '2356g'];
-let obj = ['dog', 'cat']
-let image = [[1, 5, 6], [1, 3, 7]]
+let text = ['3M56R', 'HAT8M', '0a2GPKF628', 'DDDHN', '0A3A28oY8H', 'KOXHN', '9T4JW', 'ZIHCV', 'Y4VUJ', '0a4Ovs8789',
+            'CGNGI', 'HCKGV', 'PHSYA', 'URVTP', '00AQ59V0x5', '59CTR', 'RPEVO', 'VTIXO', 'VVXZR', '00dGz69mS5', 'BZXZS',
+            'ATUQN', 'JJKQD', 'W93BX', 'WHXEG'];
+let obj = ['Triangle Shape', 'Giraffe', 'Color Yellow', 'Owl', 'Truck', 'Color Orange', 'Keyboard', 'Kangaroo', 'Color Blue',
+           'Animal', 'Color Red', 'Zebro', 'Square Shape', 'Bike', 'Penguin', 'Color Yellow', 'Basketball', 'Elephant',
+           'Lion', 'Ball', 'Beaver', 'Square Shape', 'Zebra', 'Lion', 'Deer']
+let image = [[1, 4, 5], [3, 5], [1, 7], [1, 4], [2, 4], [2, 4], [1, 3], [1, 7], [1, 4, 5, 7], [2, 3, 5, 7, 8], [5, 7], [2, 6],
+             [1, 9], [5, 8], [2, 8], [5, 9], [2, 6], [2, 3, 6], [1, 6], [4, 5], [4], [7, 9], [2, 3], [8, 9], [4, 6]]
 let select = new Array();
 let num = 0
 //index - setup
@@ -83,9 +88,10 @@ function TextCreateCAPTCHA() {
   var question = document.getElementById("question");
   var questionNumber = document.getElementById("number");
   num = Number(questionNumber.innerHTML);
+  document.getElementById("reCaptcha").focus();
   //activev captcha
   const activeCaptcha = document.getElementById("captcha");
-  activeCaptcha.src="text-based/" + text[num] + ".png";
+  activeCaptcha.src="text-based/" + text[num] + ".jpg";
   questionNumber.innerHTML = String(num + 1);
   //timer
   var timer = document.getElementById("timer");
@@ -116,6 +122,7 @@ function TextValidateCAPTCHA(value) {
   if (value == 'Submit'){
     if (recaptcha === text[num]) {
       correctness = "O";
+
     }
     else {
       correctness = "X";
@@ -158,7 +165,7 @@ function ImageCreateCAPTCHA() {
   //activev captcha
   for (var i = 1; i < 10; i++){
     const activeCaptcha = document.getElementById(String(i));
-    activeCaptcha.src="image-based/" + String(i + num*9) + ".jpg";
+    activeCaptcha.src="image-based/" + String(i + num*9) + ".png";
   }
   questionNumber.innerHTML = String(num + 1);
   //timer
@@ -192,7 +199,7 @@ function ImageValidateCAPTCHA(value) {
   const reCaptcha = select;
   const timer = document.getElementById("timer");
   var questionNumber = document.getElementById("number").innerHTML;
-
+  document.getElementById("question").focus();
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const uid = urlParams.get('uid')

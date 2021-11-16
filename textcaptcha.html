@@ -15,15 +15,24 @@
         <span class="num" id="number" style="display: none;">0</span>
         <div class="timer" id="timer" style="display: none;">300</div>
       <center><img id="captcha" src="text-based/23n88.png" ></center>
-      <script>TextCreateCAPTCHA();</script>
       <input class="reCaptcha" type="text" name="reCaptcha" id="reCaptcha" placeholder="Type the CAPTCHA" />
+      <script>TextCreateCAPTCHA();</script>
       <div class="container3">
-        <button class="container4" id="submit" type="button" style="margin:20px;" onclick="TextValidateCAPTCHA(this.value)">
+        <button class="container4" id="submit" value="Submit" type="button" style="margin:20px;" onclick="TextValidateCAPTCHA(this.value)">
+          <script>
+          var input = document.getElementById("reCaptcha");
+          input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+              event.preventDefault();
+              document.getElementById("submit").click();
+            }
+          });
+          </script>
           <span>
             Submit
           </span>
         </button>
-        <button class="container4" type="button" style="margin:20px;" onclick="TextValidateCAPTCHA(this.value)" >
+        <button class="container4" value="Omit" type="button" style="margin:20px;" onclick="TextValidateCAPTCHA(this.value)" >
           <span>
             Omit
           </span>
