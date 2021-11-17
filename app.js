@@ -11,8 +11,8 @@ let database = new Array();
 let captcha = new Array();
 let timeId = null;
 
-let text = ['3M56R', 'HAT8M', '0a2GPKF628', 'DDDHN', '0A3A28oY8H', 'KOXHN', '9T4JW', 'ZIHCV', 'Y4VUJ', '0a4Ovs8789',
-            'CGNGI', 'HCKGV', 'PHSYA', 'URVTP', '00AQ59V0x5', '59CTR', 'RPEVO', 'VTIXO', 'VVXZR', '00dGz69mS5', 'BZXZS',
+let text = ['3M56R', 'HAT8M', 'EFVJP', 'DDDHN', 'AKKSZ', 'KOXHN', '9T4JW', 'ZIHCV', 'Y4VUJ', 'WMYUQ',
+            'CGNGI', 'HCKGV', 'PHSYA', 'URVTP', '00AQ59V0x5', '59CTR', 'RPEVO', 'VTIXO', 'VVXZR', 'FGSEZ', 'BZXZS',
             'ATUQN', 'JJKQD', 'W93BX', 'WHXEG'];
 let obj = ['Triangle Shape', 'Giraffe', 'Color Yellow', 'Owl', 'Truck', 'Color Orange', 'Keyboard', 'Kangaroo', 'Color Blue',
            'Animal', 'Color Red', 'Zebro', 'Square Shape', 'Bike', 'Penguin', 'Color Yellow', 'Basketball', 'Elephant',
